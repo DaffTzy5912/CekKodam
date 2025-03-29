@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cek Khodam</title>
+    <style>
+        /* Reset default margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Partikel Animasi */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.5;
+            }
+            50% {
+                transform: translateY(-200px) translateX(100px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(0) translateX(-100px);
+                opacity: 0.5;
+            }
+        }
+
+        .container {
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #ff9800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 2px;
+            background: #ff9800;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 152, 0, 0.3);
+        }
+
+        input[type="text"]:focus {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 20px rgba(255, 152, 0, 0.8);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 152, 0, 0.5);
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #ff5722, #ff9800);
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 152, 0, 1);
+        }
+
+        button:active {
+            transform: scale(0.95);
+            box-shadow: 0 0 10px rgba(255, 152, 0, 0.8);
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #ff9800;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        #result.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Animasi Fade In */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Partikel Animasi -->
+    <div class="particles">
+        <div class="particle" style="top: 10%; left: 20%; animation-delay: 0s;"></div>
+        <div class="particle" style="top: 30%; left: 50%; animation-delay: 2s;"></div>
+        <div class="particle" style="top: 60%; left: 70%; animation-delay: 4s;"></div>
+        <div class="particle" style="top: 80%; left: 30%; animation-delay: 6s;"></div>
+        <div class="particle" style="top: 50%; left: 10%; animation-delay: 8s;"></div>
+    </div>
+
+    <div class="container">
+        <h2>Cek Khodam Anda</h2>
+        <input type="text" id="name" placeholder="Masukkan Nama Anda" required>
+        <button onclick="cekKhodam()">Cek Khodam</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        // Efek Suara
+        const clickSound = new Audio('https://www.soundjay.com/button/sounds/beep-07.mp3');
+
+        function cekKhodam() {
+            clickSound.play(); // Memainkan suara saat tombol diklik
+
+            const nama = document.getElementById('name').value;
+            const result = document.getElementById('result');
+
+            if (nama === "") {
+                alert("Silakan masukkan nama Anda!");
+                return;
+            }
+
+            const khodamList = [
+    "Harimau Putih - Pelindung Kuat",
+    "Naga Emas - Pembawa Keberuntungan",
+    "Macan Hitam - Kekuasaan dan Wibawa",
+    "Burung Garuda - Kebijaksanaan dan Perlindungan",
+    "Singa Sakti - Keberanian dan Kekuatan",
+    "Raja Ular - Penguasa Ilmu Gaib",
+    "Harimau Belang - Kecepatan dan Ketajaman Insting",
+    "Gajah Perkasa - Kekuatan dan Keberanian",
+    "Jin Ifrit - Kekuasaan dan Kekuatan Magis",
+    "Naga Hitam - Misteri dan Keperkasaan",
+    "Serigala Putih - Kecerdasan dan Kelincahan",
+    "Elang Sakti - Penglihatan Tajam dan Perlindungan",
+    "Kuda Sembrani - Kecepatan dan Kebebasan",
+    "Buaya Putih - Kesaktian dan Keberanian",
+    "Macan Emas - Kekayaan dan Keberuntungan",
+    "Rajawali Sakti - Penguasa Langit dan Kebebasan",
+    "Harimau Jawa - Kekuatan Leluhur",
+    "Naga Api - Kekuatan dan Ketahanan",
+    "Keris Penjaga - Kesaktian dan Perlindungan Gaib",
+    "Kuda Hitam - Ketahanan dan Ketangguhan",
+    "Burung Phoenix - Kehidupan dan Keabadian",
+    "Monyet Sakti - Kecerdikan dan Keberanian",
+    "Banteng Sakti - Kekuatan dan Perlindungan",
+    "Jin Qorin - Penjaga dan Pelindung Rohani",
+    "Harimau Loreng - Ketajaman Insting dan Strategi",
+    "Naga Air - Keseimbangan dan Kehidupan",
+    "Serigala Hitam - Ketajaman dan Kewaspadaan",
+    "Garuda Mas - Kemuliaan dan Kebijaksanaan",
+    "Kelelawar Hitam - Misteri dan Kepekaan Gaib",
+    "Kambing Gunung - Ketahanan dan Kesabaran",
+    "Macan Putih - Kesaktian dan Perlindungan Spiritual",
+    "Ular Naga - Kebijaksanaan dan Keabadian",
+    "Hantu Penjaga - Pelindung Gaib",
+    "Singa Hitam - Wibawa dan Kewaspadaan",
+    "Naga Langit - Kemuliaan dan Kekuasaan",
+    "Babi Hutan Sakti - Kekuatan dan Daya Tahan",
+    "Rajawali Putih - Kecerdasan dan Kebebasan",
+    "Burung Hantu Sakti - Kebijaksanaan dan Kepekaan Spiritual",
+    "Gagak Hitam - Misteri dan Kewaspadaan",
+    "Harimau Sumatra - Keberanian dan Kekuatan",
+    "Jin Perak - Kekuatan Spiritual dan Keberuntungan",
+    "Elang Perkasa - Perlindungan dan Kepemimpinan",
+    "Kuda Putih - Kesucian dan Perlindungan Ilahi",
+    "Macan Dahan - Ketenangan dan Strategi",
+    "Ular Sanca Sakti - Kekuatan dan Kelicikan",
+    "Jin Hitam - Kekuasaan dan Kedigdayaan",
+    "Naga Es - Ketenangan dan Kesabaran",
+    "Macan Awan - Ilmu Gaib dan Perlindungan",
+    "Harimau Angin - Kecepatan dan Ketangkasan",
+    "Buaya Raksasa - Perlindungan dan Keperkasaan"
+];
+
+            const randomIndex = Math.floor(Math.random() * khodamList.length);
+            result.textContent = `Khodam Anda: ${khodamList[randomIndex]}`;
+            result.classList.remove('show');
+            void result.offsetWidth; // Trigger reflow
+            result.classList.add('show');
+        }
+    </script>
+</body>
+</html>
